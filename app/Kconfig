@@ -1,18 +1,75 @@
 
+menuconfig LED_SUBSYSTEM
+    bool "LED Subsystem"
+    default y
+
+
+if LED_SUBSYSTEM
+
 choice 
-    prompt "LED blink speed"
+    prompt "LED blink sleep time"
     default BLINK_SLEEP_1000MS
 
 config BLINK_SLEEP_250MS
     bool "Fast"
 
 config BLINK_SLEEP_1000MS
-    bool "Normal"
+    bool "Medium"
 
 config BLINK_SLEEP_2000MS
     bool "Slow"
 
 endchoice
+
+menuconfig ADVANCED_LED_SUBSYSTEM
+    bool "Advanced LED settings"
+    default n
+
+if ADVANCED_LED_SUBSYSTEM
+
+config LED_BRIGHTNESS
+    int "LED brightness (0-100)"
+    default 100
+    range 0 100
+
+config LED_FADE_DURATION_MS
+    int "Fade duration (ms)"
+    default 500
+    range 0 5000
+
+menu "Expert settings"
+    visible if ADVANCED_LED_SUBSYSTEM
+
+menuconfig LED_SUBSYSTEMDEBUGGING
+    bool "Enable LED Debugging"
+    default n
+
+menuconfig CUSTOM_PATTERN
+    bool "Custom blink pattern"
+    default n
+
+endmenu
+
+
+endif # ADVANCED_LED_SUBSYSTEM
+
+endif # LED_SUBSYSTEM
+
+
+# choice 
+#     prompt "LED blink speed"
+#     default BLINK_SLEEP_1000MS
+
+# config BLINK_SLEEP_250MS
+#     bool "Fast"
+
+# config BLINK_SLEEP_1000MS
+#     bool "Normal"
+
+# config BLINK_SLEEP_2000MS
+#     bool "Slow"
+
+# endchoice
 
 
 config BLINK_SLEEP_TIME_MS  
