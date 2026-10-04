@@ -56,20 +56,10 @@ endif # ADVANCED_LED_SUBSYSTEM
 endif # LED_SUBSYSTEM
 
 
-# choice 
-#     prompt "LED blink speed"
-#     default BLINK_SLEEP_1000MS
-
-# config BLINK_SLEEP_250MS
-#     bool "Fast"
-
-# config BLINK_SLEEP_1000MS
-#     bool "Normal"
-
-# config BLINK_SLEEP_2000MS
-#     bool "Slow"
-
-# endchoice
+config APP_HEARTBEAT_PERIOD_MS
+    int "Heartbeat period (ms)"
+    default 500
+    range 100 2000
 
 
 config BLINK_SLEEP_TIME_MS  
