@@ -1,0 +1,44 @@
+cmake:
+  application:
+    configuration-dir: '/home/elvedin/Documents/iomico_zfc/mo2/zephyr-course/tests/ring_buf'
+    source-dir: '/home/elvedin/Documents/iomico_zfc/mo2/zephyr-course/tests/ring_buf'
+  board:
+    name: 'native_sim'
+    path:
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/boards/native/native_sim'
+    qualifiers: 'native'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/bindings'
+    files:
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/boards/native/native_sim/native_sim.dts'
+    include-dirs:
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/include'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/include/zephyr'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/common'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/vendor'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/rx'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/x86'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/xtensa'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/sparc'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/riscv'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/posix'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/arm64'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/arm'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts/arc'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/dts'
+  kconfig:
+    files:
+     - '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr/boards/native/native_sim/native_sim_defconfig'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/zephyr-course/tests/ring_buf/prj.conf'
+     - '/home/elvedin/Documents/iomico_zfc/mo2/zephyr-course/twister-out/native_sim_native/host/homework.unit.ring_buf/zephyr/misc/generated/extra_kconfig_options.conf'
+    user-files:
+     - '/home/elvedin/Documents/iomico_zfc/mo2/zephyr-course/tests/ring_buf/prj.conf'
+  toolchain:
+    name: 'host'
+    path: ''
+  zephyr:
+    version: '4.2.0'
+    zephyr-base: '/home/elvedin/Documents/iomico_zfc/mo2/deps/zephyr'
+version: '0.1.0'
