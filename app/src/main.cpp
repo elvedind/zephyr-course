@@ -25,7 +25,11 @@ namespace{
 
 int main(void)
 {
-    
+
+    if (!device_is_ready(dev)) {
+        return -ENODEV;
+    }
+
    
     while (1) {
         

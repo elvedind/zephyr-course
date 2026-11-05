@@ -4,8 +4,8 @@
 		app-led = &led0; // by node label
 	};
 
-	led_driver0: our_driver  {
-		compatible = "our,driver";
+	led_driver0: elv_led_control  {
+		compatible = "elv,led-control";
 		status = "okay";
 	};
 };
