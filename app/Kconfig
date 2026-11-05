@@ -70,3 +70,4 @@ config BLINK_SLEEP_TIME_MS
     default 0
 
 source "Kconfig.zephyr"
+rsource "drivers/our_driver/Kconfig"
