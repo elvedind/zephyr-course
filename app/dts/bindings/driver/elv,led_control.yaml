@@ -1,0 +1,4 @@
+description: Our custom sensor driver binding
+compatible: "elv,led-control"
+include: base.yaml
+
