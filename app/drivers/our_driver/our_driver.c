@@ -3,10 +3,15 @@
 #include <errno.h>
 #include <zephyr/drivers/gpio.h>
 
+#include "led_control.h"
 
 #define DT_DRV_COMPAT elv_led_control
 
 LOG_MODULE_REGISTER(our_driver, LOG_LEVEL_INF);  
+
+struct our_driver_data {
+    uint8_t state;
+};
 
 struct our_driver_config {
     struct gpio_dt_spec led;
@@ -62,6 +67,7 @@ static DEVICE_API(sensor, our_driver_api) = {
     
     .channel_get  = our_driver_channel_get,
     .sample_fetch = our_driver_sample_fetch,
+
 };
 
 static int init(const struct device *dev)
@@ -75,4 +81,33 @@ static int init(const struct device *dev)
     return gpio_pin_configure_dt(&cfg->led, GPIO_OUTPUT_INACTIVE);
 }
 
-DEVICE_DT_INST_DEFINE(0, init, NULL, NULL, &our_driver_config_0, POST_KERNEL, 80, &our_driver_api);
+static int our_driver_add(const struct device *dev)
+{
+    struct our_driver_data *data = dev->data;
+
+    if (data->state != 0) {
+        return -EALREADY;
+    }
+
+    return data->state = 1;
+}
+
+static int our_driver_take(const struct device *dev)
+{
+    struct our_driver_data *data = dev->data;
+
+    if (data->state != 1) {
+        return -EALREADY;
+    }
+
+    return data->state = 0;
+}
+
+static DEVICE_API(elv_led_control, elv_led_control_driver_api) = {
+    .add = our_driver_add,
+    .take = our_driver_take,
+};
+
+static struct our_driver_data our_driver_data_0;
+
+DEVICE_DT_INST_DEFINE(0, init, NULL, &our_driver_data_0, &our_driver_config_0, POST_KERNEL, 80, &elv_led_control_driver_api);

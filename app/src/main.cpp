@@ -3,6 +3,8 @@
 #include <zephyr/logging/log.h>
 #include <zephyr/drivers/sensor.h>
 
+#include "led_control.h"
+
 #define SLEEP_TIME_MS 1000
 
 /* The devicetree node identifier for the "app-led" alias. */
@@ -23,6 +25,8 @@ namespace{
 */
  const struct device* dev = DEVICE_DT_GET(DT_NODELABEL(led_driver0));
 
+ int led_state = 0; // Global variable to hold the LED state
+
 int main(void)
 {
 
@@ -33,23 +37,18 @@ int main(void)
    
     while (1) {
         
-        int ret = sensor_sample_fetch(dev);
-
-        if (ret < 0) {
-            LOG_ERR("sensor_sample_fetch failed: %d", ret);
-            return ret;
-        }
-         k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
-
-        struct sensor_value value;
-        ret = sensor_channel_get(dev, SENSOR_CHAN_AMBIENT_TEMP, &value);
-
-        if (ret < 0) {                       // calls channel_get: LED off
-            LOG_ERR("sensor_channel_get failed: %d", ret);
-            return ret;
+        if (led_state == 0) {
+            led_state = elv_led_control_add(dev); // calls channel_get: LED on
         }
 
-        //LOG_INF("LED state: %s", led_state ? "ON" : "OFF");
+        LOG_INF("LED binary state: %d", led_state);
+        k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
+
+       if (led_state == 1) {
+            led_state = elv_led_control_take(dev); // calls channel_get: LED on
+        }
+
+        LOG_INF("LED binary state: %d", led_state);
         k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
     }
     return 0;
