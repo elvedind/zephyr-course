@@ -21,7 +21,7 @@ namespace{
 
 }
 */
- const struct device* dev = DEVICE_DT_GET(DT_NODELABEL(led_driver0));
+static const struct device* dev = DEVICE_DT_GET(DT_NODELABEL(led_driver0));
 
 int main(void)
 {
@@ -32,7 +32,8 @@ int main(void)
 
    
     while (1) {
-        
+
+        /*
         int ret = sensor_sample_fetch(dev);
 
         if (ret < 0) {
@@ -50,7 +51,9 @@ int main(void)
         }
 
         //LOG_INF("LED state: %s", led_state ? "ON" : "OFF");
+        */
         k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
+        
     }
     return 0;
 }
